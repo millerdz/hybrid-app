@@ -1,0 +1,36 @@
+version: "3.3"
+
+services:
+
+  database:
+    image: <dtr hostname>/java/database
+    # set default mysql root password, change as needed
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_password
+    # Expose port 3306 to host. 
+    ports:
+      - "3306:3306" 
+    networks:
+      - back-tier
+      - datadog-agent
+
+  webserver:
+    image: <dtr hostname>/admin/java_web:latest-datadog
+    ports:
+      - "8080:8080" 
+    networks:
+      - front-tier
+      - back-tier
+      - datadog-agent
+
+networks:
+  back-tier:
+    external: true
+  front-tier:
+    external: true
+  datadog-agent:
+    external: true
+
+secrets:
+  mysql_password:
+    external: true
