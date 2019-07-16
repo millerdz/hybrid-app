@@ -34,12 +34,12 @@ docker run -d --name datadog-agent \
     ```
     mkdir -p ~/hybrid-app/java-app/apm && wget -O ~/hybrid-app/java-app/apm/dd-java-agent.jar 'https://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=com.datadoghq&a=dd-java-agent&v=LATEST'
     ```
-1. `cp -vf ~/hybrid-app/monitoring/java-app/Dockerfile ~/hybrid-app/java-app/`
-1. `cp -vf ~/hybrid-app/monitoring/java-app/pom.xml ~/hybrid-app/java-app/app/`
+1. `cp -vf ~/hybrid-app/monitoring/datadog/java-app/Dockerfile ~/hybrid-app/java-app/`
+1. `cp -vf ~/hybrid-app/monitoring/datadog/java-app/pom.xml ~/hybrid-app/java-app/app/`
 1. `cd ~/hybrid-app/java-app`
-1. `docker image build --no-cache -t $DTR_HOST/java/java_web:latest-datadog`
+1. `docker image build --no-cache -t $DTR_HOST/java/java_web:latest-datadog .`
 1. `docker login -u java_user $DTR_HOST`
-1. `docker push $DTR_HOST/java/java_web`
+1. `docker push $DTR_HOST/java/java_web:latest-datadog`
 
 ## Deploy the Updated Application
 
@@ -67,7 +67,7 @@ docker run -d --name datadog-agent \
         - datadog-agent
 
     webserver:
-        image: <dtr hostname>/admin/java_web:latest-datadog
+        image: <dtr hostname>/java/java_web:latest-datadog
         ports:
         - "8080:8080" 
         networks:
