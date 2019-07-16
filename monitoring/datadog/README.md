@@ -67,7 +67,7 @@ docker run -d --name datadog-agent \
         - datadog-agent
 
     webserver:
-        image: <dtr hostname>/admin/java_web:latest-datadog
+        image: <dtr hostname>/java/java_web:latest-datadog
         ports:
         - "8080:8080" 
         networks:
