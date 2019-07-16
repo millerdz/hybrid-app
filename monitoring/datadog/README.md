@@ -39,7 +39,7 @@ docker run -d --name datadog-agent \
 1. `cd ~/hybrid-app/java-app`
 1. `docker image build --no-cache -t $DTR_HOST/java/java_web:latest-datadog .`
 1. `docker login -u java_user $DTR_HOST`
-1. `docker push $DTR_HOST/java/java_web`
+1. `docker push $DTR_HOST/java/java_web:latest-datadog`
 
 ## Deploy the Updated Application
 
